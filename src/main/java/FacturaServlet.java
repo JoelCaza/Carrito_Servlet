@@ -1,3 +1,11 @@
+/*
+ * Autor: Joel Caza
+ * Fecha: 27/05/2024
+ * Materia: Lenguajes de Programacion
+ *
+ * */
+
+//Importaciones necesarias
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,12 +16,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+// Servlet para generar la factura del carrito de compras
 @WebServlet("/FacturaServlet")
 public class FacturaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtener la sesión
         HttpSession session = request.getSession();
+        // Obtener la lista de productos en el carrito desde la sesión
         List<Productos> carrito = (List<Productos>) session.getAttribute("carrito");
 
         // Configurar la respuesta
@@ -27,6 +37,7 @@ public class FacturaServlet extends HttpServlet {
         out.println("<meta charset='UTF-8'>");
         out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<title>Factura</title>");
+        // Estilos CSS
         out.println("<style>");
         out.println("body { font-family: Arial, sans-serif; }");
         out.println("table { width: 100%; border-collapse: collapse; }");
@@ -51,6 +62,7 @@ public class FacturaServlet extends HttpServlet {
         double totalFactura = 0;
 
         if (carrito != null) {
+            // Recorrer la lista de productos en el carrito
             for (Productos producto : carrito) {
                 out.println("<tr>");
                 out.println("<td>" + producto.getNombre() + "</td>");
@@ -62,6 +74,7 @@ public class FacturaServlet extends HttpServlet {
                 totalFactura += valorTotalProducto;
             }
         } else {
+            // Si el carrito está vacío, mostrar un mensaje
             out.println("<tr>");
             out.println("<td colspan='4'>El carrito está vacío.</td>");
             out.println("</tr>");
@@ -69,6 +82,7 @@ public class FacturaServlet extends HttpServlet {
 
         out.println("</tbody>");
         out.println("<tfoot>");
+        // Calcular subtotal, IVA y total con IVA
         out.println("<tr>");
         out.println("<td colspan='3'>Subtotal:</td>");
         out.println("<td>$" + totalFactura + "</td>");

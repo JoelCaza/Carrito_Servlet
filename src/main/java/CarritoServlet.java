@@ -1,3 +1,10 @@
+/*
+ * Autor: Joel Caza
+ * Fecha: 27/05/2024
+ * Materia: Lenguajes de Programacion
+ *
+ * */
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -5,12 +12,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
 
+// Servlet para manejar la lógica de agregar productos al carrito
 @WebServlet("/CarritoServlet")
 public class CarritoServlet extends HttpServlet {
+
+    // Método POST para agregar productos al carrito
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtener o crear la sesión
